@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afnan AI - وكيل ذكاء اصطناعي</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo-section">
+                <img src="https://i.postimg.cc/9X6V69zR/Photoroom.png" alt="Afnan AI Logo" class="logo">
+            </div>
+            <h1 class="title">Afnan AI</h1>
+            <p class="subtitle">وكيل ذكاء اصطناعي يهدف إلى مساعدة العملاء</p>
+        </header>
 
+        <main class="main-content">
+            <section class="chat-section">
+                <h2 class="section-title">تحدث مع Afnan</h2>
+                
+                <div class="chat-container">
+                    <div class="chat-box">
+                        <input 
+                            type="text" 
+                            id="userInput" 
+                            class="chat-input" 
+                            placeholder="اكتب رسالتك هنا..."
+                            autocomplete="off"
+                        >
+                        <button id="sendBtn" class="send-button">إرسال</button>
+                    </div>
+                    <div id="chatMessages" class="chat-messages"></div>
+                </div>
+            </section>
+
+            <section class="warning-section">
+                <div class="warning-box">
+                    <p class="warning-text">⚠️ قد يعرض Afnan معلومات خاطئة لذلك ننصحك بالتحقق من ردوده.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 Afnan AI. جميع الحقوق محفوظة.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
