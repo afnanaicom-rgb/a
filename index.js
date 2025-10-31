@@ -10,8 +10,8 @@ const overlay = document.getElementById('overlay');
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
-    // Initial welcome message
-    addBotMessage('مرحباً! أنا Afnan AI. كيف يمكنني مساعدتك اليوم؟', false);
+    // Initial state: The page is clean, showing only the logo and quick actions.
+    // No initial welcome message is added to keep the page clean as requested.
     
     sendBtn.addEventListener('click', sendMessage);
     userInput.addEventListener('keypress', function(e) {
@@ -39,8 +39,10 @@ function sendMessage() {
         return;
     }
     
-    // Hide quick actions when the user starts chatting
-    if (quickActions.style.display !== 'none') {
+    // Hide logo and quick actions when the user starts chatting
+    const logoSection = document.querySelector('.logo-section');
+    if (logoSection.style.display !== 'none') {
+        logoSection.style.display = 'none';
         quickActions.style.display = 'none';
     }
 
@@ -58,7 +60,7 @@ function sendMessage() {
     }, 1000);
 }
 
-// Add User Message to Chat
+// Add User Message to Chat (User message on the LEFT)
 function addUserMessage(message) {
     const messageContainer = document.createElement('div');
     messageContainer.className = 'message-container user-message-container';
@@ -74,7 +76,7 @@ function addUserMessage(message) {
     chatHistory.scrollTop = chatHistory.scrollHeight;
 }
 
-// Add Bot Message to Chat
+// Add Bot Message to Chat (Bot message on the RIGHT)
 function addBotMessage(message, withMeta) {
     const messageContainer = document.createElement('div');
     messageContainer.className = 'message-container bot-message-container';
@@ -82,14 +84,17 @@ function addBotMessage(message, withMeta) {
     const messageBubble = document.createElement('div');
     messageBubble.className = 'message-bubble bot-message-bubble';
     
-    // Bot Avatar/Name (Placeholder)
+    // Bot Avatar/Name (Logo above the text)
     const botInfo = document.createElement('div');
-    botInfo.style.textAlign = 'center';
-    botInfo.innerHTML = '<img src="https://i.postimg.cc/9X6V69zR/Photoroom.png" alt="Afnan" style="width: 30px; height: 30px; margin-bottom: 5px;"><br>Afnan';
-    botInfo.style.marginBottom = '10px';
+    botInfo.className = 'bot-info';
+    botInfo.innerHTML = `
+        <img src="https://i.postimg.cc/9X6V69zR/Photoroom.png" alt="Afnan" class="bot-logo">
+        <span class="bot-name">Afnan</span>
+    `;
     
-    const textContent = document.createElement('p');
-    textContent.textContent = message;
+    const textContent = document.createElement('div');
+    textContent.className = 'message-text';
+    textContent.innerHTML = `<p>${message}</p>`; // Use innerHTML to allow line breaks if needed
     
     messageBubble.appendChild(botInfo);
     messageBubble.appendChild(textContent);
@@ -99,10 +104,10 @@ function addBotMessage(message, withMeta) {
         const meta = document.createElement('div');
         meta.className = 'message-meta';
         meta.innerHTML = `
-            <span class="icon fa-copy" title="نسخ"></span>
-            <span class="icon fa-thumbs-up" title="إعجاب"></span>
-            <span class="icon fa-thumbs-down" title="عدم إعجاب"></span>
-            <span class="icon fa-edit" title="تعديل"></span>
+            <i class="fa-solid fa-copy" title="نسخ"></i>
+            <i class="fa-solid fa-thumbs-up" title="إعجاب"></i>
+            <i class="fa-solid fa-thumbs-down" title="عدم إعجاب"></i>
+            <i class="fa-solid fa-pen-to-square" title="تعديل"></i>
         `;
         messageBubble.appendChild(meta);
     }

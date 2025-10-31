@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Afnan AI - تحدث مع</title>
-    <!-- Using a placeholder for a common icon library like Font Awesome for the icons -->
+    <title>Afnan AI - وجهتك نحو المستقبل | تحدث مع الذكاء الاصطناعي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4C+22k/k6tQWp0g7T5eWl/j6/s8A/b2e2/n0tGz/4z9pG4dG8l7A8y5G7oB0pQ2tA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -12,8 +12,8 @@
         <!-- Header/Navigation Bar -->
         <header class="header">
             <div class="header-left">
-                <span class="header-icon fa-plus"></span>
-                <span class="header-icon fa-bars" id="sidebar-toggle"></span>
+                <i class="header-icon fa-solid fa-plus"></i>
+                <i class="header-icon fa-solid fa-bars" id="sidebar-toggle"></i>
             </div>
             <a href="login.html" class="sign-in-btn">تسجيل الدخول</a>
         </header>
@@ -34,15 +34,15 @@
             <!-- Quick Action Buttons (Visible when chat history is empty) -->
             <section class="quick-actions" id="quick-actions">
                 <a href="#" class="action-btn">
-                    <span class="action-icon fa-file-alt"></span>
+                    <i class="action-icon fa-solid fa-user-tie"></i>
                     <span>محام</span>
                 </a>
                 <a href="#" class="action-btn">
-                    <span class="action-icon fa-globe"></span>
+                    <i class="action-icon fa-solid fa-globe"></i>
                     <span>ابحث في الانترنت</span>
                 </a>
                 <a href="#" class="action-btn">
-                    <span class="action-icon fa-image"></span>
+                    <i class="action-icon fa-solid fa-image"></i>
                     <span>انشاء لي صورة</span>
                 </a>
             </section>
@@ -51,14 +51,14 @@
         <!-- Chat Input Bar -->
         <footer class="chat-input-bar">
             <div class="input-container">
-                <button class="icon-btn send-icon fa-arrow-up" id="send-btn"></button>
+                <i class="icon-btn send-icon fa-solid fa-arrow-up" id="send-btn"></i>
                 <input 
                     type="text" 
                     id="user-input" 
                     placeholder="اكتب رسالتك هنا..."
                     autocomplete="off"
                 >
-                <button class="icon-btn fa-paperclip" id="attach-btn"></button>
+                <i class="icon-btn fa-solid fa-paperclip" id="attach-btn"></i>
             </div>
             <!-- Warning Text -->
             <p class="warning-text">
@@ -70,16 +70,16 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <span class="sidebar-close-btn fa-plus" id="sidebar-close"></span>
+            <i class="sidebar-close-btn fa-solid fa-xmark" id="sidebar-close"></i>
         </div>
-        <a href="#" class="sidebar-subscribe-btn">
-            <span class="icon fa-crown"></span>
+        <a href="subscribe.html" class="sidebar-subscribe-btn">
+            <i class="icon fa-solid fa-crown"></i>
             اشترك الآن
         </a>
         <h2 class="sidebar-title">المحادثات</h2>
         
         <div class="sidebar-search-container">
-            <span class="icon fa-search"></span>
+            <i class="icon fa-solid fa-magnifying-glass"></i>
             <input type="text" placeholder="البحث في المحادثات...">
         </div>
 
@@ -90,11 +90,11 @@
 
         <div class="sidebar-footer">
             <div class="sidebar-footer-item">
-                <span class="icon fa-user"></span>
+                <i class="icon fa-solid fa-user"></i>
                 حسابك
             </div>
             <div class="sidebar-footer-item">
-                <span class="icon fa-sign-out-alt"></span>
+                <i class="icon fa-solid fa-arrow-right-from-bracket"></i>
                 تسجيل الخروج
             </div>
         </div>

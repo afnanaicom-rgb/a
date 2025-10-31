@@ -93,7 +93,7 @@ body {
     align-items: center;
 }
 
-/* Logo and Title Section */
+/* Logo and Title Section (Only visible when chat is empty) */
 .logo-section {
     text-align: center;
     margin-bottom: 40px;
@@ -112,7 +112,7 @@ body {
     color: var(--text-dark);
 }
 
-/* Quick Action Buttons */
+/* Quick Action Buttons (Visible when chat is empty) */
 .quick-actions {
     display: flex;
     justify-content: center;
@@ -137,6 +137,7 @@ body {
     font-size: 12px;
     transition: background-color 0.3s;
     min-height: 80px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .action-btn:hover {
@@ -146,6 +147,7 @@ body {
 .action-icon {
     font-size: 20px;
     margin-bottom: 5px;
+    color: var(--primary-color);
 }
 
 /* Chat Messages Area (for history view) */
@@ -163,12 +165,14 @@ body {
     width: 100%;
 }
 
+/* User message on the LEFT */
 .user-message-container {
-    justify-content: flex-end;
+    justify-content: flex-start; /* Changed to flex-start */
 }
 
+/* Bot message on the RIGHT */
 .bot-message-container {
-    justify-content: flex-start;
+    justify-content: flex-end; /* Changed to flex-end */
 }
 
 .message-bubble {
@@ -178,31 +182,72 @@ body {
     line-height: 1.5;
     font-size: 15px;
     position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-.user-message-bubble {
-    background-color: var(--chat-bubble-user);
+/* User message bubble styling */
+.user-message-container .message-bubble {
+    background-color: var(--chat-bubble-user); /* Blue */
     color: var(--background-white);
     border-bottom-left-radius: 4px;
 }
 
-.bot-message-bubble {
-    background-color: var(--chat-bubble-bot);
+/* Bot message bubble styling */
+.bot-message-container .message-bubble {
+    background-color: var(--background-white); /* White/Clean */
     color: var(--text-dark);
     border-bottom-right-radius: 4px;
+    /* Removing the colored background for a cleaner look */
+    box-shadow: none; /* Removing shadow for bot message */
+    border: 1px solid var(--border-color); /* Optional: Add light border */
+    padding: 10px 15px;
+}
+
+/* Bot message content structure */
+.bot-message-container .message-bubble .bot-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.bot-message-container .message-bubble .bot-logo {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.bot-message-container .message-bubble .bot-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.bot-message-container .message-bubble .message-text {
+    /* No background/padding for the text content itself */
+    padding: 0;
+    margin-top: 10px; /* Space after logo/name */
+    font-size: 16px;
+    line-height: 1.6;
 }
 
 .message-meta {
     display: flex;
     align-items: center;
-    margin-top: 5px;
-    font-size: 12px;
+    margin-top: 10px;
+    font-size: 14px;
     color: var(--text-muted);
+    justify-content: flex-end; /* Align meta to the left of the bot message */
 }
 
 .message-meta .icon {
-    margin-left: 10px;
+    margin-left: 15px;
     cursor: pointer;
+    color: var(--secondary-color);
+}
+
+.message-meta .icon:hover {
+    color: var(--primary-color);
 }
 
 /* Chat Input Bar (Footer) */
@@ -262,7 +307,7 @@ body {
     padding: 10px 0;
 }
 
-/* Sidebar Styling */
+/* Sidebar Styling (No change needed here, already clean) */
 .sidebar {
     position: fixed;
     top: 0;
@@ -347,23 +392,6 @@ body {
 .overlay.visible {
     display: block;
 }
-
-/* Utility Classes for Icons (using Font Awesome placeholders) */
-.fa-plus::before { content: "+"; }
-.fa-bars::before { content: "≡"; }
-.fa-search::before { content: "🔍"; }
-.fa-image::before { content: "🖼️"; }
-.fa-file-alt::before { content: "📄"; }
-.fa-globe::before { content: "🌐"; }
-.fa-paperclip::before { content: "📎"; }
-.fa-arrow-up::before { content: "⬆️"; }
-.fa-crown::before { content: "👑"; }
-.fa-user::before { content: "👤"; }
-.fa-sign-out-alt::before { content: "↩️"; }
-.fa-edit::before { content: "✏️"; }
-.fa-copy::before { content: "📋"; }
-.fa-thumbs-up::before { content: "👍"; }
-.fa-thumbs-down::before { content: "👎"; }
 
 /* Specific Sidebar Styles */
 .sidebar-subscribe-btn {

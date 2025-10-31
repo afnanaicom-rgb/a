@@ -154,8 +154,8 @@ body {
     font-size: 20px;
 }
 
-.google-btn .fa-google::before { content: "G"; color: var(--google-color); }
-.phone-btn .fa-phone::before { content: "📞"; }
+.google-btn .fa-brands.fa-google { color: var(--google-color); }
+.phone-btn .fa-solid.fa-phone { color: var(--text-dark); }
 
 /* Footer */
 .login-footer {
@@ -180,5 +180,5 @@ body {
 }
 
 /* Utility Classes for Icons (using Font Awesome placeholders) */
-.fa-google::before { content: "G"; }
-.fa-phone::before { content: "📞"; }
+.fa-brands.fa-google { }
+.fa-solid.fa-phone { }
