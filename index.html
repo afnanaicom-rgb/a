@@ -3,50 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Afnan AI - وكيل ذكاء اصطناعي</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Afnan AI - تحدث مع</title>
+    <!-- Using a placeholder for a common icon library like Font Awesome for the icons -->
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="container">
+    <div class="app-container">
+        <!-- Header/Navigation Bar -->
         <header class="header">
-            <div class="logo-section">
-                <img src="https://i.postimg.cc/9X6V69zR/Photoroom.png" alt="Afnan AI Logo" class="logo">
+            <div class="header-left">
+                <span class="header-icon fa-plus"></span>
+                <span class="header-icon fa-bars" id="sidebar-toggle"></span>
             </div>
-            <h1 class="title">Afnan AI</h1>
-            <p class="subtitle">وكيل ذكاء اصطناعي يهدف إلى مساعدة العملاء</p>
+            <a href="login.html" class="sign-in-btn">تسجيل الدخول</a>
         </header>
 
+        <!-- Main Content Area -->
         <main class="main-content">
-            <section class="chat-section">
-                <h2 class="section-title">تحدث مع Afnan</h2>
-                
-                <div class="chat-container">
-                    <div class="chat-box">
-                        <input 
-                            type="text" 
-                            id="userInput" 
-                            class="chat-input" 
-                            placeholder="اكتب رسالتك هنا..."
-                            autocomplete="off"
-                        >
-                        <button id="sendBtn" class="send-button">إرسال</button>
-                    </div>
-                    <div id="chatMessages" class="chat-messages"></div>
-                </div>
+            <!-- Logo and Title Section -->
+            <section class="logo-section">
+                <img src="https://i.postimg.cc/9X6V69zR/Photoroom.png" alt="Afnan AI Logo" class="logo">
+                <h1 class="title">تحدث مع Afnan</h1>
             </section>
 
-            <section class="warning-section">
-                <div class="warning-box">
-                    <p class="warning-text">⚠️ قد يعرض Afnan معلومات خاطئة لذلك ننصحك بالتحقق من ردوده.</p>
-                </div>
+            <!-- Chat History (Empty on initial load, will be populated by JS) -->
+            <section class="chat-history" id="chat-history">
+                <!-- Messages will be added here -->
+            </section>
+
+            <!-- Quick Action Buttons (Visible when chat history is empty) -->
+            <section class="quick-actions" id="quick-actions">
+                <a href="#" class="action-btn">
+                    <span class="action-icon fa-file-alt"></span>
+                    <span>محام</span>
+                </a>
+                <a href="#" class="action-btn">
+                    <span class="action-icon fa-globe"></span>
+                    <span>ابحث في الانترنت</span>
+                </a>
+                <a href="#" class="action-btn">
+                    <span class="action-icon fa-image"></span>
+                    <span>انشاء لي صورة</span>
+                </a>
             </section>
         </main>
 
-        <footer class="footer">
-            <p>&copy; 2024 Afnan AI. جميع الحقوق محفوظة.</p>
+        <!-- Chat Input Bar -->
+        <footer class="chat-input-bar">
+            <div class="input-container">
+                <button class="icon-btn send-icon fa-arrow-up" id="send-btn"></button>
+                <input 
+                    type="text" 
+                    id="user-input" 
+                    placeholder="اكتب رسالتك هنا..."
+                    autocomplete="off"
+                >
+                <button class="icon-btn fa-paperclip" id="attach-btn"></button>
+            </div>
+            <!-- Warning Text -->
+            <p class="warning-text">
+                قد يعرض Afnan معلومات خاطئة لذلك ننصحك بالتحقق من ردوده.
+            </p>
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="sidebar-close-btn fa-plus" id="sidebar-close"></span>
+        </div>
+        <a href="#" class="sidebar-subscribe-btn">
+            <span class="icon fa-crown"></span>
+            اشترك الآن
+        </a>
+        <h2 class="sidebar-title">المحادثات</h2>
+        
+        <div class="sidebar-search-container">
+            <span class="icon fa-search"></span>
+            <input type="text" placeholder="البحث في المحادثات...">
+        </div>
+
+        <!-- Conversation List (Placeholder) -->
+        <div class="conversation-list">
+            <!-- Items will go here -->
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-footer-item">
+                <span class="icon fa-user"></span>
+                حسابك
+            </div>
+            <div class="sidebar-footer-item">
+                <span class="icon fa-sign-out-alt"></span>
+                تسجيل الخروج
+            </div>
+        </div>
+    </div>
+    <!-- Overlay for Sidebar -->
+    <div class="overlay" id="overlay"></div>
+
+    <script src="index.js"></script>
 </body>
 </html>
