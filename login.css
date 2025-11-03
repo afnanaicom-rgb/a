@@ -1,184 +1,292 @@
-/* Base Styles and Reset */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
+
+:root {
+    --background-color: #ffffff;
+    --text-primary: #111827;
+    --text-secondary: #6B7280;
+    --border-color: #D1D5DB;
+    --button-primary-bg: #111827;
+    --button-primary-text: #ffffff;
+    --success-color: #10B981;
+    --egypt-flag: #FF0000;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-:root {
-    --primary-color: #1a1a1a; /* Dark background for primary button */
-    --background-white: #ffffff; /* White background */
-    --text-dark: #212529; /* Dark text */
-    --text-muted: #6c757d; /* Muted text */
-    --border-color: #dee2e6; /* Light border */
-    --google-color: #4285F4;
 }
 
 body {
-    background-color: var(--background-white);
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     min-height: 100vh;
-    direction: rtl;
-    text-align: right;
     padding: 20px;
 }
 
-/* Login Container */
-.login-container {
+/* Hide all pages by default */
+.page {
+    display: none;
     width: 100%;
-    max-width: 400px; /* Standard form width */
-    background-color: var(--background-white);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-}
-
-/* Header */
-.login-header {
+    max-width: 400px;
     text-align: center;
+    padding-top: 5vh;
+}
+
+.page.active {
+    display: block;
+}
+
+.full-page {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color);
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.full-page.active {
+    display: block;
+}
+
+.full-page-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-primary);
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.back-button:hover {
+    background-color: #f3f4f6;
+}
+
+/* Auth Header */
+.auth-header {
     margin-bottom: 40px;
 }
 
-.logo {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 20px;
+.auth-header .logo {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 24px;
 }
 
-.title {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 10px;
+.auth-header h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 8px;
 }
 
-.subtitle {
-    font-size: 16px;
-    color: var(--text-muted);
-    line-height: 1.5;
+.auth-header p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
-/* Main Form */
-.login-main {
-    margin-bottom: 40px;
-}
-
-.login-form {
+/* Form Elements */
+.auth-main {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 16px;
+    margin-bottom: 24px;
 }
 
 .input-field {
     width: 100%;
-    padding: 15px;
+    padding: 16px;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 16px;
-    text-align: right;
-    outline: none;
-    transition: border-color 0.3s;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .input-field:focus {
-    border-color: var(--primary-color);
+    outline: none;
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
-.continue-btn {
+.phone-input-container {
+    display: flex;
+    gap: 8px;
     width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.3s;
-    text-decoration: none; /* For social buttons */
+}
+
+.country-code {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background-color: #f9fafb;
+    min-width: 100px;
+    justify-content: center;
+}
+
+.egypt-flag {
+    width: 24px;
+    height: 16px;
+    background: linear-gradient(to bottom, #FF0000 0%, #FF0000 33%, #FFFFFF 33%, #FFFFFF 66%, #000000 66%);
+    border-radius: 2px;
+}
+
+.phone-input {
+    flex: 1;
+}
+
+.submit-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
+    width: 100%;
+    padding: 16px;
+    background: var(--button-primary-bg);
+    color: var(--button-primary-text);
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
-.continue-btn:hover {
-    opacity: 0.9;
+.submit-button:hover {
+    background-color: #374151;
 }
 
-.primary-btn {
-    background-color: var(--primary-color);
-    color: var(--background-white);
-    margin-top: 5px;
-}
-
-/* Separator */
 .separator {
     display: flex;
     align-items: center;
     text-align: center;
-    margin: 25px 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
 }
 
 .separator::before,
 .separator::after {
     content: '';
     flex: 1;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #e5e5e5;
 }
 
-.separator:not(:empty)::before {
-    margin-left: .25em;
-}
+.separator:not(:empty)::before { margin-left: .75em; }
+.separator:not(:empty)::after { margin-right: .75em; }
 
-.separator:not(:empty)::after {
-    margin-right: .25em;
-}
-
-.separator-text {
-    color: var(--text-muted);
-    font-size: 14px;
-    padding: 0 10px;
-}
-
-/* Social Buttons */
-.social-btn {
-    background-color: var(--background-white);
-    color: var(--text-dark);
+.social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px;
+    background-color: var(--background-color);
+    color: var(--text-primary);
     border: 1px solid var(--border-color);
-    margin-bottom: 15px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
 }
 
-.social-btn .icon {
-    font-size: 20px;
+.social-button:hover {
+    background-color: #f9fafb;
+    border-color: #9CA3AF;
 }
 
-.google-btn .fa-brands.fa-google { color: var(--google-color); }
-.phone-btn .fa-solid.fa-phone { color: var(--text-dark); }
+.social-button .icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
 
-/* Footer */
-.login-footer {
+/* Verification Code Input */
+.verification-inputs {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 24px 0;
+}
+
+.verification-input {
+    width: 50px;
+    height: 50px;
     text-align: center;
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.8;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
-.copyright {
-    margin-bottom: 10px;
+.verification-input:focus {
+    outline: none;
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
-.links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    padding: 0 5px;
+/* Success Message */
+.success-message {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
+    color: var(--success-color);
+    font-weight: 500;
+    margin-bottom: 16px;
 }
 
-.links a:hover {
+/* Footer (MODIFIED) */
+.auth-footer {
+    padding: 20px 0;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    width: 100%;
+    background-color: var(--background-color);
+    /* No longer fixed to the bottom of the viewport */
+}
+
+.auth-footer a {
+    color: var(--text-secondary);
     text-decoration: underline;
+    margin: 0 8px;
+    transition: color 0.2s;
+    cursor: pointer;
 }
 
-/* Utility Classes for Icons (using Font Awesome placeholders) */
-.fa-brands.fa-google { }
-.fa-solid.fa-phone { }
+.auth-footer a:hover {
+    color: var(--text-primary);
+}
+
+/* Other styles for legal pages, loading, etc. */
+/* ... (rest of the CSS) ... */
+

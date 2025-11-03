@@ -1,107 +1,84 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Afnan AI - وجهتك نحو المستقبل | تحدث مع الذكاء الاصطناعي</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4C+22k/k6tQWp0g7T5eWl/j6/s8A/b2e2/n0tGz/4z9pG4dG8l7A8y5G7oB0pQ2tA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="index.css">
+    <title>Afnan ai It is an artificial intelligence agent that aims to help customers. </title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Header/Navigation Bar -->
-        <header class="header">
-            <div class="header-left">
-                <i class="header-icon fa-solid fa-plus"></i>
-                <i class="header-icon fa-solid fa-bars" id="sidebar-toggle"></i>
-            </div>
-            <a href="login.html" class="sign-in-btn">تسجيل الدخول</a>
-        </header>
-
-        <!-- Main Content Area -->
-        <main class="main-content">
-            <!-- Logo and Title Section -->
-            <section class="logo-section">
-                <img src="https://i.postimg.cc/9X6V69zR/Photoroom.png" alt="Afnan AI Logo" class="logo">
-                <h1 class="title">تحدث مع Afnan</h1>
-            </section>
-
-            <!-- Chat History (Empty on initial load, will be populated by JS) -->
-            <section class="chat-history" id="chat-history">
-                <!-- Messages will be added here -->
-            </section>
-
-            <!-- Quick Action Buttons (Visible when chat history is empty) -->
-            <section class="quick-actions" id="quick-actions">
-                <a href="#" class="action-btn">
-                    <i class="action-icon fa-solid fa-user-tie"></i>
-                    <span>محام</span>
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="action-icon fa-solid fa-globe"></i>
-                    <span>ابحث في الانترنت</span>
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="action-icon fa-solid fa-image"></i>
-                    <span>انشاء لي صورة</span>
-                </a>
-            </section>
-        </main>
-
-        <!-- Chat Input Bar -->
-        <footer class="chat-input-bar">
-            <div class="input-container">
-                <i class="icon-btn send-icon fa-solid fa-arrow-up" id="send-btn"></i>
-                <input 
-                    type="text" 
-                    id="user-input" 
-                    placeholder="اكتب رسالتك هنا..."
-                    autocomplete="off"
-                >
-                <i class="icon-btn fa-solid fa-paperclip" id="attach-btn"></i>
-            </div>
-            <!-- Warning Text -->
-            <p class="warning-text">
-                قد يعرض Afnan معلومات خاطئة لذلك ننصحك بالتحقق من ردوده.
-            </p>
-        </footer>
+    <div class="header">
+        <a href="login.html" class="login-button">تسجيل الدخول</a>
+        <div class="header-right">
+            <button class="menu-button" id="menuButton"><i class='bx bx-menu'></i></button>
+            <button class="new-chat-button" id="newChatButton"><i class='bx bx-plus'></i></button>
+        </div>
     </div>
 
-    <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
+        <div class="sidebar-top-actions">
+            <a href="pro.html" style="text-decoration: none;">
+                <button class="subscribe-button">
+                    <i class='bx bx-crown'></i><span>اشترك الآن</span>
+                </button>
+            </a>
+        </div>
         <div class="sidebar-header">
-            <i class="sidebar-close-btn fa-solid fa-xmark" id="sidebar-close"></i>
+            <h3 class="sidebar-title">المحادثات</h3>
         </div>
-        <a href="subscribe.html" class="sidebar-subscribe-btn">
-            <i class="icon fa-solid fa-crown"></i>
-            اشترك الآن
-        </a>
-        <h2 class="sidebar-title">المحادثات</h2>
-        
         <div class="sidebar-search-container">
-            <i class="icon fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="البحث في المحادثات...">
+            <i class='bx bx-search'></i>
+            <input type="search" placeholder="البحث في المحادثات..." class="sidebar-search-input">
         </div>
-
-        <!-- Conversation List (Placeholder) -->
-        <div class="conversation-list">
-            <!-- Items will go here -->
-        </div>
-
-        <div class="sidebar-footer">
-            <div class="sidebar-footer-item">
-                <i class="icon fa-solid fa-user"></i>
-                حسابك
+        <div class="sidebar-bottom">
+            <div class="user-account">
+                <i class='bx bx-user-circle'></i>
+                <span>حسابك</span>
             </div>
-            <div class="sidebar-footer-item">
-                <i class="icon fa-solid fa-arrow-right-from-bracket"></i>
-                تسجيل الخروج
-            </div>
+            <button class="logout-button" title="تسجيل الخروج">
+                <i class='bx bx-log-out'></i>
+            </button>
         </div>
     </div>
-    <!-- Overlay for Sidebar -->
-    <div class="overlay" id="overlay"></div>
 
-    <script src="index.js"></script>
+    <div class="main-container">
+        <div class="welcome-content" id="welcomeContent">
+             <img src="https://i.postimg.cc/9X6V69zR/Photoroom.png" alt="Avocado Logo" class="welcome-logo">
+             <p class="welcome-title">Afnan تحدث مع </p>
+        </div>
+
+        <div class="chat-area" id="chatArea"></div>
+
+        <div class="input-container">
+            <div class="suggestion-grid" id="suggestionGrid">
+                <button class="suggestion-card" data-icon="<i class='bx bxs-file-doc'></i>">
+                    <i class='bx bxs-file-doc'></i><span>انشاء لي صوره </span>
+                </button>
+                <button class="suggestion-card" data-icon="<i class='bx bx-notepad'></i>">
+                    <i class='bx bx-notepad'></i><span>ابحث في الانترنت</span>
+                </button>
+                <button class="suggestion-card" data-icon="<i class='bx bxs-report'></i>">
+                    <i class='bx bxs-report'></i><span>محلل المستندات</span>
+                </button>
+                <button class="suggestion-card" data-icon="<i class='bx bx-search-alt'></i>">
+                    <i class='bx bx-search-alt'></i><span> التفكير العميق</span>
+                </button>
+            </div>
+
+            <div class="input-wrapper" id="inputWrapper">
+                <div class="input-bar">
+                    <div class="input-content">
+                        <textarea class="chat-textarea" id="chatInput" placeholder="اكتب رسالتك هنا..." rows="1"></textarea>
+                    </div>
+                    <button class="send-button" id="sendButton"><i class='bx bx-up-arrow-alt'></i></button>
+                </div>
+            </div>
+            <p class="disclaimer">قد يعرض Afnan معلومات خاطئة لذلك ننصحك بالتحقق من ردوده.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
+

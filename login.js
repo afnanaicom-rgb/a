@@ -1,32 +1,38 @@
-// Simple JavaScript for login page (can be extended for form validation or social login integration)
+// JavaScript for page navigation and interaction
+function openPage(pageId) {
+    document.querySelectorAll('.page, .full-page').forEach(page => {
+        page.classList.remove('active');
+    });
+    document.getElementById(pageId).classList.add('active');
+}
 
-document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.querySelector('.login-form');
-    
-    loginForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const emailInput = document.querySelector('.input-field');
-        const email = emailInput.value.trim();
-        
-        if (email === '') {
-            alert('الرجاء إدخال عنوان البريد الإلكتروني.');
-            return;
-        }
-        
-        // In a real application, you would send this to a server
-        console.log('Attempting to continue with email:', email);
-        
-        // Simulate successful login attempt and redirect to the chat page
-        // alert(`تم إرسال رابط تسجيل الدخول إلى ${email}.`);
-        // window.location.href = 'index.html';
-    });
-    
-    // Add event listeners for social buttons if needed
-    const socialButtons = document.querySelectorAll('.social-btn');
-    socialButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // alert(`المتابعة باستخدام ${button.textContent.trim()} غير مفعلة حاليًا.`);
-        });
-    });
+function closePage(pageId) {
+    document.getElementById(pageId).classList.remove('active');
+    // Logic to return to the previous page (e.g., loginPage)
+    // For simplicity, we always return to the main login page.
+    document.getElementById('loginPage').classList.add('active');
+}
+
+document.getElementById('emailSubmit').addEventListener('click', function() {
+    // In a real app, this would send a request to a server
+    openPage('emailVerificationPage');
+});
+
+document.getElementById('phoneLogin').addEventListener('click', function() {
+    openPage('phoneLoginPage');
+});
+
+document.getElementById('phoneSubmit').addEventListener('click', function() {
+    // In a real app, this would send an SMS code and move to the next page
+    openPage('phoneVerificationPage');
+});
+
+document.getElementById('verifyPhone').addEventListener('click', function() {
+    // This will now redirect to index.html
+    window.location.href = 'index.html';
+});
+
+document.getElementById('proceedToIndex').addEventListener('click', function() {
+    // This will now also redirect to index.html
+    window.location.href = 'index.html';
 });

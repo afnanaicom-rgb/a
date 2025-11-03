@@ -1,130 +1,227 @@
-// DOM Elements
-const userInput = document.getElementById('userInput');
-const sendBtn = document.getElementById('sendBtn');
-const chatMessages = document.getElementById('chatMessages');
+document.addEventListener('DOMContentLoaded', () => {
+    const textarea = document.getElementById('chatInput');
+    const inputWrapper = document.getElementById('inputWrapper');
+    const sendButton = document.getElementById('sendButton');
+    const chatArea = document.getElementById('chatArea');
+    const welcomeContent = document.getElementById('welcomeContent');
+    const sidebar = document.getElementById('sidebar');
+    const menuButton = document.getElementById('menuButton');
+    const newChatButton = document.getElementById('newChatButton');
+    const suggestionGrid = document.getElementById('suggestionGrid');
+    const suggestionCards = document.querySelectorAll('.suggestion-card');
+    const mainContainer = document.querySelector('.main-container'); // Added this
 
-// Initialize
-document.addEventListener('DOMContentLoaded', function() {
-    // Add welcome message
-    addBotMessage('مرحباً! أنا Afnan AI. كيف يمكنني مساعدتك اليوم؟');
+    let isGenerating = false;
+    let assistantResponseTimeout = null;
+    let messageToEdit = null;
+
+    const ICONS = {
+        send: "<i class='bx bx-up-arrow-alt'></i>",
+        stop: "<i class='bx bx-stop'></i>",
+        edit: "<i class='bx bx-check'></i>"
+    };
     
-    // Event listeners
-    sendBtn.addEventListener('click', sendMessage);
-    userInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            sendMessage();
+    function autoResize() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+    }
+
+    function toggleSidebar() { 
+        sidebar.classList.toggle('visible'); 
+    }
+    
+    function startNewChat() {
+        chatArea.innerHTML = '';
+        welcomeContent.classList.remove('hidden');
+        chatArea.classList.remove('visible');
+        suggestionGrid.classList.remove('hidden');
+        resetInputArea();
+    }
+
+    function addMessage(content, type) {
+        const wrapper = document.createElement('div');
+        wrapper.className = `message-wrapper ${type}-wrapper`;
+        
+        let messageDiv;
+        let actionBar = document.createElement('div');
+        actionBar.className = 'action-bar';
+
+        if (type === 'assistant') {
+            const avatar = document.createElement('img');
+            avatar.src = 'https://i.postimg.cc/9X6V69zR/Photoroom.png';
+            avatar.alt = 'Afnan Avatar';
+            avatar.className = 'assistant-avatar';
+            wrapper.appendChild(avatar);
+
+            const contentWrapper = document.createElement('div');
+            contentWrapper.className = 'message-content-wrapper';
+            
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'assistant-name';
+            nameSpan.textContent = 'Afnan';
+            contentWrapper.appendChild(nameSpan);
+
+            messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = content;
+            contentWrapper.appendChild(messageDiv);
+            
+            actionBar.innerHTML = `
+                <button class="action-btn-copy" title="نسخ"><i class='bx bx-copy'></i></button>
+                <button title="مشاركة"><i class='bx bx-share-alt'></i></button>
+                <button title="إعجاب"><i class='bx bx-like'></i></button>
+            `;
+            contentWrapper.appendChild(actionBar);
+            wrapper.appendChild(contentWrapper);
+
+        } else { // User
+            messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = content;
+            wrapper.appendChild(messageDiv);
+
+            actionBar.innerHTML = `
+                <button class="action-btn-copy" title="نسخ"><i class='bx bx-copy'></i></button>
+                <button class="action-btn-edit" title="تعديل"><i class='bx bx-pencil'></i></button>
+            `;
+            wrapper.appendChild(actionBar);
+        }
+
+        chatArea.appendChild(wrapper);
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    function startChatMode() {
+        welcomeContent.classList.add('hidden');
+        chatArea.classList.add('visible');
+        suggestionGrid.classList.add('hidden');
+    }
+    
+    function updateSendButton(state) {
+        sendButton.innerHTML = ICONS[state];
+        if (state === 'stop') {
+            sendButton.classList.add('stop-generation');
+        } else {
+            sendButton.classList.remove('stop-generation');
+        }
+    }
+
+    function resetInputArea() {
+        textarea.value = '';
+        autoResize.call(textarea);
+        messageToEdit = null;
+        if (isGenerating) stopGeneration();
+        updateSendButton('send');
+    }
+
+    function startEdit(messageElement) {
+        messageToEdit = messageElement;
+        textarea.value = messageElement.textContent;
+        textarea.focus();
+        autoResize.call(textarea);
+        updateSendButton('edit');
+    }
+
+    function saveEdit() {
+        if (!messageToEdit) return;
+        const newContent = textarea.value.trim();
+        if (newContent) {
+            messageToEdit.textContent = newContent;
+        }
+        resetInputArea();
+    }
+
+    function stopGeneration() {
+        if (assistantResponseTimeout) {
+            clearTimeout(assistantResponseTimeout);
+            assistantResponseTimeout = null;
+        }
+        isGenerating = false;
+        updateSendButton('send');
+    }
+
+    function handleSend() {
+        if (isGenerating) {
+            stopGeneration();
+            return;
+        }
+
+        if (messageToEdit) {
+            saveEdit();
+            return;
+        }
+
+        const message = textarea.value.trim();
+        if (!message) return;
+
+        if (!chatArea.classList.contains('visible')) startChatMode();
+        
+        addMessage(message, 'user');
+        resetInputArea();
+
+        isGenerating = true;
+        updateSendButton('stop');
+
+        assistantResponseTimeout = setTimeout(() => {
+            addMessage('هذا رد تجريبي من Afnan للتحقق من التصميم. يمكنك تجربة أزرار النسخ والتعديل والإعجاب.', 'assistant');
+            isGenerating = false;
+            updateSendButton('send');
+        }, 2000);
+    }
+
+    // --- Event Listeners ---
+    menuButton.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent click from closing sidebar immediately
+        toggleSidebar();
+    });
+    newChatButton.addEventListener('click', startNewChat);
+
+    textarea.addEventListener('input', autoResize);
+    textarea.addEventListener('focus', () => inputWrapper.classList.add('focused'));
+    textarea.addEventListener('blur', () => inputWrapper.classList.remove('focused'));
+
+    sendButton.addEventListener('click', handleSend);
+    textarea.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSend();
+        }
+    });
+
+    suggestionCards.forEach(card => {
+        card.addEventListener('click', () => {
+            textarea.value = card.querySelector('span').textContent;
+            textarea.focus();
+            autoResize.call(textarea);
+        });
+    });
+
+    chatArea.addEventListener('click', (e) => {
+        const copyBtn = e.target.closest('.action-btn-copy');
+        const editBtn = e.target.closest('.action-btn-edit');
+
+        if (copyBtn) {
+            const textToCopy = copyBtn.closest('.message-wrapper').querySelector('.message').textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                console.log('Copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        if (editBtn) {
+            const messageToEditElement = editBtn.closest('.message-wrapper').querySelector('.message');
+            startEdit(messageToEditElement);
+        }
+    });
+
+    // New: Close sidebar when clicking outside
+    document.addEventListener('click', (e) => {
+        const isClickInsideSidebar = sidebar.contains(e.target);
+        const isClickOnMenuButton = menuButton.contains(e.target);
+
+        if (sidebar.classList.contains('visible') && !isClickInsideSidebar && !isClickOnMenuButton) {
+            toggleSidebar();
         }
     });
 });
-
-// Send Message Function
-function sendMessage() {
-    const message = userInput.value.trim();
-    
-    if (message === '') {
-        return;
-    }
-    
-    // Add user message
-    addUserMessage(message);
-    
-    // Clear input
-    userInput.value = '';
-    userInput.focus();
-    
-    // Simulate bot response
-    setTimeout(() => {
-        const response = getBotResponse(message);
-        addBotMessage(response);
-    }, 500);
-}
-
-// Add User Message to Chat
-function addUserMessage(message) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'message user';
-    messageDiv.textContent = message;
-    chatMessages.appendChild(messageDiv);
-    
-    // Scroll to bottom
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-// Add Bot Message to Chat
-function addBotMessage(message) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'message bot';
-    messageDiv.textContent = message;
-    chatMessages.appendChild(messageDiv);
-    
-    // Scroll to bottom
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-// Get Bot Response
-function getBotResponse(userMessage) {
-    const lowerMessage = userMessage.toLowerCase();
-    
-    // Predefined responses
-    const responses = {
-        'مرحبا': 'مرحباً! كيف حالك؟',
-        'السلام عليكم': 'وعليكم السلام ورحمة الله وبركاته! كيف أستطيع مساعدتك؟',
-        'كيف حالك': 'أنا بحالة جيدة، شكراً للسؤال! كيف يمكنني مساعدتك؟',
-        'من أنت': 'أنا Afnan AI، وكيل ذكاء اصطناعي مصمم لمساعدة العملاء والإجابة على استفساراتهم.',
-        'ما اسمك': 'اسمي Afnan AI. يسعدني التحدث معك!',
-        'شكراً': 'على الرحب والسعة! هل هناك شيء آخر يمكنني مساعدتك به؟',
-        'شكرا': 'على الرحب والسعة! هل هناك شيء آخر يمكنني مساعدتك به؟',
-        'وداعاً': 'وداعاً! شكراً لاستخدامك Afnan AI. أتطلع للحديث معك قريباً!',
-        'وداعا': 'وداعاً! شكراً لاستخدامك Afnan AI. أتطلع للحديث معك قريباً!',
-        'باي': 'باي! نتحدث قريباً إن شاء الله!',
-        'ما هي خدماتك': 'أنا هنا لمساعدتك في الإجابة على الأسئلة والاستفسارات المختلفة. يمكنك أن تسأل عن أي موضوع تقريباً!',
-        'هل تستطيع': 'نعم، أستطيع مساعدتك في معظم الأمور! جرب أن تسأل عن أي شيء.',
-        'ساعدني': 'بالتأكيد! أنا هنا لمساعدتك. ما الذي تحتاج إلى مساعدة فيه؟',
-    };
-    
-    // Check for exact matches
-    for (const [key, value] of Object.entries(responses)) {
-        if (lowerMessage.includes(key)) {
-            return value;
-        }
-    }
-    
-    // Default responses based on message length
-    if (userMessage.length < 5) {
-        return 'أستطيع مساعدتك بشكل أفضل إذا أعطيتني المزيد من التفاصيل. هل يمكنك توضيح سؤالك؟';
-    }
-    
-    // Random responses for unknown queries
-    const defaultResponses = [
-        'هذا سؤال مثير للاهتمام! دعني أفكر فيه... في الواقع، أنا قد أحتاج إلى معلومات أكثر لأتمكن من مساعدتك بشكل أفضل.',
-        'أفهم سؤالك. هذا موضوع مهم جداً. هل يمكنك توضيح ما تقصد بشكل أكثر تفصيلاً؟',
-        'شكراً على السؤال! أنا أعمل على تحسين معرفتي بهذا الموضوع. هل هناك شيء محدد تود أن تعرفه؟',
-        'هذا موضوع جديد بالنسبة لي. هل يمكنك مساعدتي بمزيد من المعلومات؟',
-        'أنا أحاول فهم ما تقول. هل يمكنك إعادة صياغة سؤالك بطريقة أخرى؟',
-    ];
-    
-    return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
-}
-
-// Utility: Format timestamp
-function getTimestamp() {
-    const now = new Date();
-    return now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
-}
-
-// Optional: Add typing indicator
-function showTypingIndicator() {
-    const typingDiv = document.createElement('div');
-    typingDiv.className = 'message bot typing';
-    typingDiv.innerHTML = '<span>.</span><span>.</span><span>.</span>';
-    chatMessages.appendChild(typingDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-    return typingDiv;
-}
-
-// Optional: Remove typing indicator
-function removeTypingIndicator(element) {
-    if (element && element.parentNode) {
-        element.parentNode.removeChild(element);
-    }
-}
