@@ -2,6 +2,7 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+import { getDatabase } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
 
 // Your web app's Firebase configuration
@@ -19,10 +20,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getDatabase(app);
 
 // Set Google Client ID for Google Sign-In
 auth.useDeviceLanguage();
 
 const analytics = getAnalytics(app);
 
-export { app, auth, analytics };
+export { app, auth, analytics, db };
