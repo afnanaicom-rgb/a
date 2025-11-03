@@ -159,8 +159,8 @@ body {
 .chat-area { flex-grow: 1; padding: 20px; overflow-y: auto; display: none; }
 .chat-area.visible { display: block; }
 .message-wrapper { display: flex; flex-direction: column; margin-bottom: 15px; max-width: 90%; }
-.user-wrapper { align-items: flex-end; margin-left: auto; }
-.assistant-wrapper { align-items: flex-start; display: flex; gap: 10px; margin-right: auto;}
+.user-wrapper { align-items: flex-start; margin-right: auto; }
+.assistant-wrapper { align-items: flex-end; display: flex; gap: 10px; margin-left: auto;}
 .assistant-avatar { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; margin-top: 25px; }
 .message-content-wrapper { display: flex; flex-direction: column; width: 100%; }
 .assistant-name { font-size: 0.8rem; font-weight: 500; color: #333; margin-bottom: 4px; }
@@ -168,11 +168,11 @@ body {
     padding: 15px 20px; border-radius: 16px; width: fit-content; max-width: 100%;
     line-height: 1.5; animation: slideIn 0.3s ease; position: relative;
 }
-.message.user {
+.message.user { margin-right: auto;
     background: linear-gradient(135deg, rgba(135, 206, 250, 0.15), rgba(173, 216, 230, 0.18));
     border-bottom-right-radius: 4px; margin-left: auto;
 }
-.message.assistant {
+.message.assistant { margin-left: auto;
     background: rgba(255, 255, 255, 0.8); border-bottom-left-radius: 4px;
     border: 1px solid rgba(135, 206, 235, 0.1);
 }
@@ -180,8 +180,8 @@ body {
 
 /* --- Action Bar for Messages --- */
 .action-bar { display: flex; gap: 8px; padding: 8px 10px 0; }
-.user-wrapper .action-bar { justify-content: flex-end; }
-.assistant-wrapper .action-bar { justify-content: flex-start; }
+.user-wrapper .action-bar { justify-content: flex-start; }
+.assistant-wrapper .action-bar { justify-content: flex-end; }
 .action-bar button {
     background: none; border: none; color: #777; font-size: 1.1rem;
     cursor: pointer; transition: color 0.2s;
@@ -234,4 +234,19 @@ body {
 @media (max-width: 768px) {
      .sidebar { width: 80%; }
      .welcome-title { font-size: 1rem; }
+}
+
+
+.image-upload-button {
+    background: transparent;
+    border: none;
+    color: #555;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    margin-right: 8px;
+}
+
+.image-upload-button:hover {
+    color: #333;
 }
