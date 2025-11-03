@@ -19,6 +19,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+// Set Google Client ID for Google Sign-In
+auth.useDeviceLanguage();
+
 const analytics = getAnalytics(app);
 
 export { app, auth, analytics };

@@ -7,8 +7,15 @@ import {
     signInWithEmailLink,
     onAuthStateChanged,
     GoogleAuthProvider,
-    signInWithPopup
+    signInWithPopup,
+    setPersistence,
+    browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+
+// Set persistence to LOCAL so the user stays logged in
+setPersistence(auth, browserLocalPersistence).catch((error) => {
+    console.error("Error setting persistence:", error);
+});
 
 // --- Page Navigation Functions ---
 
@@ -28,7 +35,7 @@ function closePage(pageId) {
 
 const actionCodeSettings = {
     // URL to redirect to after email link is sent.
-    url: window.location.href,
+    url: 'https://afnanaicom-rgb.github.io/a/login.html',
     // This must be true.
     handleCodeInApp: true,
 };
@@ -38,6 +45,13 @@ document.getElementById('emailSubmit').addEventListener('click', async function(
     const email = document.getElementById('emailInput').value;
     if (!email) {
         alert("الرجاء إدخال بريدك الإلكتروني.");
+        return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert("الرجاء إدخال بريد إلكتروني صحيح.");
         return;
     }
 
@@ -55,19 +69,46 @@ document.getElementById('emailSubmit').addEventListener('click', async function(
 
     } catch (error) {
         console.error("Error sending sign-in link:", error);
-        alert("حدث خطأ أثناء إرسال رابط التحقق. الرجاء المحاولة مرة أخرى.");
+        
+        // Handle specific Firebase errors
+        if (error.code === 'auth/invalid-email') {
+            alert("البريد الإلكتروني غير صحيح.");
+        } else if (error.code === 'auth/user-disabled') {
+            alert("هذا الحساب معطل.");
+        } else if (error.code === 'auth/too-many-requests') {
+            alert("حاولت عدة مرات. الرجاء المحاولة لاحقاً.");
+        } else {
+            alert("حدث خطأ: " + error.message);
+        }
     }
 });
 
 // 2. Handle Google Sign-In
 document.getElementById('googleLogin').addEventListener('click', async function() {
     const provider = new GoogleAuthProvider();
+    
+    // Set custom parameters for Google Sign-In
+    provider.setCustomParameters({
+        'prompt': 'consent'
+    });
+
     try {
-        await signInWithPopup(auth, provider);
+        const result = await signInWithPopup(auth, provider);
+        console.log("User signed in with Google:", result.user);
         // User is signed in, onAuthStateChanged will handle redirection
     } catch (error) {
         console.error("Error with Google Sign-In:", error);
-        alert("حدث خطأ أثناء تسجيل الدخول باستخدام جوجل.");
+        
+        // Handle specific Firebase errors
+        if (error.code === 'auth/popup-blocked') {
+            alert("تم حظر النافذة المنبثقة. الرجاء السماح بالنوافذ المنبثقة.");
+        } else if (error.code === 'auth/popup-closed-by-user') {
+            alert("تم إغلاق نافذة تسجيل الدخول.");
+        } else if (error.code === 'auth/operation-not-supported-in-this-environment') {
+            alert("عملية تسجيل الدخول غير مدعومة في هذا المتصفح.");
+        } else {
+            alert("حدث خطأ: " + error.message);
+        }
     }
 });
 
@@ -84,10 +125,21 @@ if (isSignInWithEmailLink(auth, window.location.href)) {
         try {
             await signInWithEmailLink(auth, email, window.location.href);
             window.localStorage.removeItem('emailForSignIn');
+            console.log("User signed in with email link");
             // User is signed in, onAuthStateChanged will handle redirection
         } catch (error) {
             console.error("Error signing in with email link:", error);
-            alert("حدث خطأ أثناء تسجيل الدخول عبر الرابط.");
+            
+            // Handle specific Firebase errors
+            if (error.code === 'auth/invalid-email') {
+                alert("البريد الإلكتروني غير صحيح.");
+            } else if (error.code === 'auth/expired-action-code') {
+                alert("رابط التحقق انتهت صلاحيته. الرجاء طلب رابط جديد.");
+            } else if (error.code === 'auth/invalid-action-code') {
+                alert("رابط التحقق غير صحيح.");
+            } else {
+                alert("حدث خطأ: " + error.message);
+            }
         }
     }
 }
@@ -95,39 +147,22 @@ if (isSignInWithEmailLink(auth, window.location.href)) {
 // 4. Auth State Change Listener (Redirection)
 onAuthStateChanged(auth, (user) => {
     if (user) {
+        console.log("User is signed in:", user.email);
         // User is signed in, redirect to the chat page
-        window.location.href = 'index.html';
+        setTimeout(() => {
+            window.location.href = 'https://afnanaicom-rgb.github.io/a/index.html';
+        }, 1000);
     } else {
+        console.log("User is signed out");
         // User is signed out, ensure they are on the login page
-        if (window.location.pathname.endsWith('index.html')) {
+        if (window.location.pathname.includes('index.html')) {
             // If they are on index.html, redirect them to login.html
-            window.location.href = 'login.html';
+            window.location.href = 'https://afnanaicom-rgb.github.io/a/login.html';
         } else {
             // Ensure the login page is active
             openPage('loginPage');
         }
     }
-});
-
-// --- Other Event Listeners (Kept for compatibility, but Firebase handles the core logic) ---
-
-// The phone login is not implemented with Firebase Auth in this version, so we remove the listeners
-// document.getElementById('phoneLogin').addEventListener('click', function() {
-//     openPage('phoneLoginPage');
-// });
-
-// document.getElementById('phoneSubmit').addEventListener('click', function() {
-//     openPage('phoneVerificationPage');
-// });
-
-// document.getElementById('verifyPhone').addEventListener('click', function() {
-//     window.location.href = 'index.html';
-// });
-
-document.getElementById('proceedToIndex').addEventListener('click', function() {
-    // This button is now redundant as onAuthStateChanged handles redirection
-    // We can keep it to give the user a way to proceed if they think they are signed in
-    window.location.href = 'index.html';
 });
 
 // Expose functions for HTML onclick attributes
