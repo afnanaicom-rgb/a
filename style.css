@@ -543,3 +543,173 @@ body.dark-mode .message-actions button {
 body.dark-mode .message-actions button:hover {
     color: #5a9bd5;
 }
+
+/* ===== Tools Modal ===== */
+.tools-modal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    display: none;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.tools-modal.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.tools-modal-content {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px 20px 0 0;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    animation: slideUp 0.3s ease;
+}
+
+body.dark-mode .tools-modal-content {
+    background: rgba(26, 26, 46, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.tool-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    background: rgba(135, 206, 235, 0.1);
+    border: 1px solid rgba(135, 206, 235, 0.2);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+}
+
+body.dark-mode .tool-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.tool-item:hover {
+    background: rgba(135, 206, 235, 0.2);
+    border-color: rgba(135, 206, 235, 0.4);
+    transform: translateY(-2px);
+}
+
+body.dark-mode .tool-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.tool-item i {
+    font-size: 2rem;
+    color: #3a7bd5;
+}
+
+body.dark-mode .tool-item i {
+    color: #5a9bd5;
+}
+
+.tool-item span {
+    font-size: 0.9rem;
+    color: #555;
+    text-align: center;
+}
+
+body.dark-mode .tool-item span {
+    color: #ccc;
+}
+
+.tools-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #555;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: all 0.2s ease;
+}
+
+.tools-button:hover {
+    color: #3a7bd5;
+}
+
+body.dark-mode .tools-button {
+    color: #aaa;
+}
+
+body.dark-mode .tools-button:hover {
+    color: #5a9bd5;
+}
+
+/* Responsive Design for Tools Modal */
+@media (max-width: 768px) {
+    .tools-modal-content {
+        padding: 15px;
+    }
+    
+    .tools-grid {
+        gap: 12px;
+    }
+    
+    .tool-item {
+        padding: 15px;
+    }
+    
+    .tool-item i {
+        font-size: 1.8rem;
+    }
+    
+    .tool-item span {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tools-modal-content {
+        padding: 12px;
+    }
+    
+    .tools-grid {
+        gap: 10px;
+    }
+    
+    .tool-item {
+        padding: 12px;
+    }
+    
+    .tool-item i {
+        font-size: 1.6rem;
+    }
+    
+    .tool-item span {
+        font-size: 0.8rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

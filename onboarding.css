@@ -197,3 +197,72 @@ body.dark-mode .welcome-title {
     display: block;
     margin-top: 10px;
 }
+
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+    .onboarding-card {
+        padding: 30px 20px;
+    }
+    
+    .onboarding-card h2 {
+        font-size: 1.5rem;
+    }
+    
+    .welcome-title {
+        font-size: 2rem;
+    }
+    
+    .date-inputs {
+        flex-direction: column;
+    }
+    
+    .date-input {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .onboarding-container {
+        padding: 15px;
+    }
+    
+    .onboarding-card {
+        padding: 25px 15px;
+    }
+    
+    .onboarding-card h2 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+    
+    .welcome-card {
+        padding: 40px 20px;
+    }
+    
+    .welcome-title {
+        font-size: 1.6rem;
+        margin-bottom: 30px;
+    }
+    
+    .onboarding-input,
+    .date-input {
+        padding: 12px 15px;
+        font-size: 0.95rem;
+    }
+    
+    .onboarding-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .onboarding-card {
+        padding: 50px;
+    }
+    
+    .welcome-card {
+        padding: 80px 50px;
+    }
+}

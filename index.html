@@ -83,8 +83,9 @@
 
             <div class="input-wrapper" id="inputWrapper">
                 <div class="input-bar">
-                        <button class="image-upload-button" id="imageUploadButton" title="إرسال صورة"><i class='bx bx-paperclip'></i></button>
+                        <button class="tools-button" id="toolsButton" title="الأدوات"><i class='bx bx-plus'></i></button>
                         <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                        <input type="file" id="fileInput" accept="*/*" style="display: none;">
                     <div class="input-content">
                         <textarea class="chat-textarea" id="chatInput" placeholder="اكتب رسالتك هنا..." rows="1" data-i18n-placeholder="typeMessage"></textarea>
                     </div>
@@ -92,6 +93,38 @@
                 </div>
             </div>
             <p class="disclaimer" data-i18n="disclaimer">قد يعرض afnanai معلومات خاطئة لذلك ننصحك بالتحقق من ردوده.</p>
+        </div>
+    </div>
+    
+    <!-- Tools Modal -->
+    <div class="tools-modal" id="toolsModal">
+        <div class="tools-modal-content">
+            <div class="tools-grid">
+                <button class="tool-item" data-tool="image">
+                    <i class='bx bx-image'></i>
+                    <span data-i18n="sendImage">إرسال صورة</span>
+                </button>
+                <button class="tool-item" data-tool="file">
+                    <i class='bx bx-file'></i>
+                    <span data-i18n="sendFile">إرسال ملف</span>
+                </button>
+                <button class="tool-item" data-tool="srish">
+                    <i class='bx bx-search-alt'></i>
+                    <span data-i18n="srishSearch">Srish Search</span>
+                </button>
+                <button class="tool-item" data-tool="dabri">
+                    <i class='bx bx-search'></i>
+                    <span data-i18n="dabriSearch">Dabri Search</span>
+                </button>
+                <button class="tool-item" data-tool="deepthinking">
+                    <i class='bx bx-brain'></i>
+                    <span data-i18n="deepThinking">التفكير العميق</span>
+                </button>
+                <button class="tool-item" data-tool="createimage">
+                    <i class='bx bx-image-add'></i>
+                    <span data-i18n="createImage">إنشاء صورة</span>
+                </button>
+            </div>
         </div>
     </div>
 

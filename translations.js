@@ -22,6 +22,12 @@ const translations = {
         documentAnalyzer: "Document analyzer",
         deepThinking: "Deep thinking",
         
+        // Tools
+        sendImage: "Send Image",
+        sendFile: "Send File",
+        dabriSearch: "Dabri Search",
+        srishSearch: "Srish Search",
+        
         // Login Page
         legalAssistant: "Your Smart Legal Assistant",
         startJourney: "Start your journey towards more efficient legal practice",
@@ -94,6 +100,12 @@ const translations = {
         searchInternet: "ابحث في الانترنت",
         documentAnalyzer: "محلل المستندات",
         deepThinking: "التفكير العميق",
+        
+        // Tools
+        sendImage: "إرسال صورة",
+        sendFile: "إرسال ملف",
+        dabriSearch: "دبري سيرش",
+        srishSearch: "سريش سيرش",
         
         // Login Page
         legalAssistant: "مساعدك القانوني الذكي",
@@ -168,6 +180,12 @@ const translations = {
         documentAnalyzer: "文档分析器",
         deepThinking: "深度思考",
         
+        // Tools
+        sendImage: "发送图片",
+        sendFile: "发送文件",
+        dabriSearch: "Dabri 搜索",
+        srishSearch: "Srish 搜索",
+        
         // Login Page
         legalAssistant: "您的智能法律助手",
         startJourney: "开始您更高效的法律实践之旅",
@@ -240,6 +258,12 @@ const translations = {
         searchInternet: "Rechercher sur Internet",
         documentAnalyzer: "Analyseur de documents",
         deepThinking: "Réflexion approfondie",
+        
+        // Tools
+        sendImage: "Envoyer une image",
+        sendFile: "Envoyer un fichier",
+        dabriSearch: "Recherche Dabri",
+        srishSearch: "Recherche Srish",
         
         // Login Page
         legalAssistant: "Votre assistant juridique intelligent",

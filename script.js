@@ -50,8 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const userEmailSpan = document.getElementById('userEmail');
     const userProfileImage = document.getElementById('userProfileImage');
     const logoutButton = document.getElementById('logoutButton');
-    const imageUploadButton = document.getElementById('imageUploadButton');
+    const toolsButton = document.getElementById('toolsButton');
     const imageInput = document.getElementById('imageInput');
+    const fileInput = document.getElementById('fileInput');
+    const toolsModal = document.getElementById('toolsModal');
     const typingTextElement = document.getElementById('typingText');
     const chatHistoryList = document.getElementById('chatHistoryList');
 
@@ -368,9 +370,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Image Upload Handler ---
-    imageUploadButton.addEventListener('click', () => {
-        imageInput.click(); // Trigger file input click
+    // --- Tools Modal Handler ---
+    toolsButton.addEventListener('click', () => {
+        toolsModal.classList.toggle('active');
+    });
+    
+    // Close modal when clicking outside
+    toolsModal.addEventListener('click', (e) => {
+        if (e.target === toolsModal) {
+            toolsModal.classList.remove('active');
+        }
+    });
+    
+    // Handle tool selection
+    document.querySelectorAll('.tool-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const tool = item.dataset.tool;
+            toolsModal.classList.remove('active');
+            
+            switch(tool) {
+                case 'image':
+                    imageInput.click();
+                    break;
+                case 'file':
+                    fileInput.click();
+                    break;
+                case 'srish':
+                    console.log('Srish Search activated');
+                    // Add Srish Search functionality here
+                    break;
+                case 'dabri':
+                    console.log('Dabri Search activated');
+                    // Add Dabri Search functionality here
+                    break;
+                case 'deepthinking':
+                    console.log('Deep Thinking activated');
+                    // Add Deep Thinking functionality here
+                    break;
+                case 'createimage':
+                    console.log('Create Image activated');
+                    // Add Create Image functionality here
+                    break;
+            }
+        });
     });
 
     imageInput.addEventListener('change', (e) => {
