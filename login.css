@@ -290,3 +290,104 @@ body {
 /* Other styles for legal pages, loading, etc. */
 /* ... (rest of the CSS) ... */
 
+
+
+/* ===== Dark Mode Styles ===== */
+body.dark-mode {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #e0e0e0;
+}
+
+body.dark-mode .auth-header h1 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .auth-header p {
+    color: #aaa;
+}
+
+body.dark-mode .input-field {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+body.dark-mode .input-field::placeholder {
+    color: #888;
+}
+
+body.dark-mode .input-field:focus {
+    border-color: rgba(58, 123, 213, 0.5);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.2);
+}
+
+body.dark-mode .country-code {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .submit-button {
+    background: rgba(58, 123, 213, 0.3);
+}
+
+body.dark-mode .submit-button:hover {
+    background: rgba(58, 123, 213, 0.5);
+}
+
+body.dark-mode .separator {
+    color: #888;
+}
+
+body.dark-mode .separator::before,
+body.dark-mode .separator::after {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .social-button {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+body.dark-mode .social-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .verification-input {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+body.dark-mode .verification-input:focus {
+    border-color: rgba(58, 123, 213, 0.5);
+    box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.2);
+}
+
+body.dark-mode .success-message {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+body.dark-mode .auth-footer {
+    color: #aaa;
+    background: transparent;
+}
+
+body.dark-mode .auth-footer a {
+    color: #5a9bd5;
+}
+
+body.dark-mode .auth-footer a:hover {
+    color: #7ab5e5;
+}
+
+body.dark-mode .back-button {
+    color: #e0e0e0;
+}
+
+body.dark-mode .back-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}

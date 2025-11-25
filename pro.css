@@ -247,3 +247,56 @@ body {
 .popup-button.secondary:hover {
     background: rgba(255, 255, 255, 0.9);
 }
+
+/* ===== Dark Mode Styles ===== */
+body.dark-mode {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #e0e0e0;
+}
+
+body.dark-mode .sub-page-back-button {
+    color: #e0e0e0;
+}
+
+body.dark-mode .plan-content-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .plan-content-card h2 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .plan-content-card .plan-price {
+    color: #aaa;
+}
+
+body.dark-mode .plan-content-card .plan-price strong {
+    color: #e0e0e0;
+}
+
+body.dark-mode .plan-content-card ul li {
+    color: #ccc;
+}
+
+body.dark-mode .popup-content {
+    background: rgba(26, 26, 46, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .popup-content h3 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .popup-content p {
+    color: #aaa;
+}
+
+body.dark-mode .popup-button.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+body.dark-mode .popup-button.secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
