@@ -159,29 +159,98 @@ body {
 .chat-area { flex-grow: 1; padding: 20px; overflow-y: auto; display: none; }
 .chat-area.visible { display: block; }
 .message-wrapper { display: flex; flex-direction: column; margin-bottom: 15px; max-width: 90%; }
-.user-wrapper { align-items: flex-start; margin-right: auto; }
-.assistant-wrapper { align-items: flex-end; display: flex; gap: 10px; margin-left: auto;}
-.assistant-avatar { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; margin-top: 25px; }
-.message-content-wrapper { display: flex; flex-direction: column; width: 100%; }
-.assistant-name { font-size: 0.8rem; font-weight: 500; color: #333; margin-bottom: 4px; }
+
+/* رسائل afnanai في الجانب الأيمن */
+.assistant-wrapper { 
+    align-items: flex-end; 
+    display: flex; 
+    gap: 10px; 
+    margin-left: auto;
+    flex-direction: row-reverse; /* اللوغو على اليمين */
+}
+.assistant-avatar { 
+    width: 35px; 
+    height: 35px; 
+    border-radius: 50%; 
+    flex-shrink: 0; 
+    margin-top: 0;
+    align-self: flex-start;
+}
+.message-content-wrapper { 
+    display: flex; 
+    flex-direction: column; 
+    width: 100%; 
+    align-items: flex-end;
+}
+.assistant-name { 
+    font-size: 0.8rem; 
+    font-weight: 500; 
+    color: #333; 
+    margin-bottom: 4px; 
+}
+
+/* رسائل المستخدم في الجانب الأيسر */
+.user-wrapper { 
+    align-items: flex-start; 
+    margin-right: auto;
+}
+.user-message-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+}
+.user-message-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+.user-message-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.user-message-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #555;
+}
 .message {
     padding: 15px 20px; border-radius: 16px; width: fit-content; max-width: 100%;
     line-height: 1.5; animation: slideIn 0.3s ease; position: relative;
 }
-.message.user { margin-right: auto;
+.message.user { 
     background: linear-gradient(135deg, rgba(135, 206, 250, 0.15), rgba(173, 216, 230, 0.18));
-    border-bottom-right-radius: 4px; margin-right: auto;
+    border-bottom-left-radius: 4px;
+    align-self: flex-start;
 }
-.message.assistant { margin-left: auto;
-    background: rgba(255, 255, 255, 0.8); border-bottom-left-radius: 4px; margin-left: auto;
+.message.assistant { 
+    background: rgba(255, 255, 255, 0.8);
+    border-bottom-right-radius: 4px;
     border: 1px solid rgba(135, 206, 235, 0.1);
+    align-self: flex-end;
 }
 @keyframes slideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
 /* --- Action Bar for Messages --- */
-.action-bar { display: flex; gap: 8px; padding: 8px 10px 0; }
-.user-wrapper .action-bar { justify-content: flex-start; }
-.assistant-wrapper .action-bar { justify-content: flex-end; }
+.action-bar { 
+    display: flex; 
+    gap: 8px; 
+    padding: 8px 10px 0;
+    margin-top: 5px;
+}
+/* أزرار المستخدم على اليسار */
+.user-wrapper .action-bar { 
+    justify-content: flex-start;
+    align-self: flex-start;
+}
+/* أزرار afnanai على اليمين */
+.assistant-wrapper .action-bar { 
+    justify-content: flex-end;
+    align-self: flex-end;
+}
 .action-bar button {
     background: none; border: none; color: #777; font-size: 1.1rem;
     cursor: pointer; transition: color 0.2s;

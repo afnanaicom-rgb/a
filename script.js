@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (type === 'assistant') {
             const avatar = document.createElement('img');
-            avatar.src = 'https://i.postimg.cc/9X6V69zR/Photoroom.png';
+            avatar.src = 'logo.png';
             avatar.alt = 'Afnan Avatar';
             avatar.className = 'assistant-avatar';
             wrapper.appendChild(avatar);
@@ -132,16 +132,49 @@ document.addEventListener('DOMContentLoaded', () => {
             wrapper.appendChild(contentWrapper);
 
         } else { // User
+            const contentWrapper = document.createElement('div');
+            contentWrapper.className = 'user-message-content-wrapper';
+            
+            // User info (profile image and name)
+            const userInfo = document.createElement('div');
+            userInfo.className = 'user-message-info';
+            
+            const userImg = document.createElement('img');
+            userImg.className = 'user-message-avatar';
+            // Get user info from auth
+            if (auth.currentUser) {
+                if (auth.currentUser.photoURL) {
+                    userImg.src = auth.currentUser.photoURL;
+                } else {
+                    userImg.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3E%3Cpath fill="%23999" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/%3E%3C/svg%3E';
+                }
+                const userName = document.createElement('span');
+                userName.className = 'user-message-name';
+                userName.textContent = auth.currentUser.displayName || auth.currentUser.email?.split('@')[0] || 'أنت';
+                userInfo.appendChild(userImg);
+                userInfo.appendChild(userName);
+            }
+            
+            contentWrapper.appendChild(userInfo);
+            
             messageDiv = document.createElement('div');
             messageDiv.className = `message ${type}`;
             messageDiv.textContent = content;
-            wrapper.appendChild(messageDiv);
+            contentWrapper.appendChild(messageDiv);
 
             actionBar.innerHTML = `
                 <button class="action-btn-copy" title="نسخ"><i class='bx bx-copy'></i></button>
                 <button class="action-btn-edit" title="تعديل"><i class='bx bx-pencil'></i></button>
             `;
-            wrapper.appendChild(actionBar);
+            actionBar.style.display = 'none'; // Hide by default
+            contentWrapper.appendChild(actionBar);
+            
+            // Show action bar on click
+            contentWrapper.addEventListener('click', () => {
+                actionBar.style.display = actionBar.style.display === 'none' ? 'flex' : 'none';
+            });
+            
+            wrapper.appendChild(contentWrapper);
         }
 
         chatArea.appendChild(wrapper);
