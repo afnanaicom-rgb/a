@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Apply saved language
     const savedLanguage = localStorage.getItem('language') || 'en';
     
-    // Update direction for Arabic
+    // Update direction and lang attribute
     if (savedLanguage === 'ar') {
         document.documentElement.setAttribute('dir', 'rtl');
         document.documentElement.setAttribute('lang', 'ar');
@@ -25,4 +25,29 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.setAttribute('dir', 'ltr');
         document.documentElement.setAttribute('lang', 'en');
     }
+    
+    // Apply translations
+    applyLanguage(savedLanguage);
 });
+
+function applyLanguage(lang) {
+    if (!translations || !translations[lang]) return;
+    
+    // Translate elements with data-i18n attribute
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+            element.textContent = translations[lang][key];
+        }
+    });
+    
+    // Translate placeholders
+    const placeholderElements = document.querySelectorAll('[data-i18n-placeholder]');
+    placeholderElements.forEach(element => {
+        const key = element.getAttribute('data-i18n-placeholder');
+        if (translations[lang][key]) {
+            element.setAttribute('placeholder', translations[lang][key]);
+        }
+    });
+}
