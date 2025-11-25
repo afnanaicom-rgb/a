@@ -110,10 +110,16 @@ body {
 }
 .user-account { display: flex; align-items: center; gap: 10px; color: #444; }
 .user-account i { font-size: 1.5rem; }
-.logout-button {
+.sidebar-bottom-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.settings-button, .logout-button {
     background: none; border: none; font-size: 1.5rem; color: #777;
     cursor: pointer; transition: color 0.2s ease;
 }
+.settings-button:hover { color: #3a7bd5; }
 .logout-button:hover { color: #c0392b; }
 
 /* --- Main Content --- */

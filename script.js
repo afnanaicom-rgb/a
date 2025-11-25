@@ -286,7 +286,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const item = document.createElement('div');
                 item.className = 'chat-history-item';
                 item.setAttribute('data-chat-id', chatId);
-                item.innerHTML = `<i class='bx bx-message-square-detail'></i><span>${chatData.title}</span>`;
+                // Show only first 3 characters + ...
+                const shortTitle = chatData.title ? chatData.title.substring(0, 3) + '...' : 'New Chat';
+                item.innerHTML = `<i class='bx bx-message-square-detail'></i><span>${shortTitle}</span>`;
                 
                 item.addEventListener('click', () => {
                     loadChat(chatId);

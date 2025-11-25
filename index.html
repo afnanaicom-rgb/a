@@ -8,6 +8,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
+    <script src="i18n.js"></script>
     <script type="module" src="firebase-config.js"></script>
     <script type="module" src="auth-guard.js"></script>
     <div class="header">
@@ -44,9 +45,14 @@
                     <span id="userEmail" class="user-email" style="display: none;"></span>
                 </div>
             </div>
-            <button class="logout-button" id="logoutButton" title="تسجيل الخروج" style="display: none;">
-                <i class='bx bx-log-out'></i>
-            </button>
+            <div class="sidebar-bottom-actions">
+                <button class="settings-button" onclick="window.location.href='afnan.html'" title="الإعدادات">
+                    <i class='bx bx-cog'></i>
+                </button>
+                <button class="logout-button" id="logoutButton" title="تسجيل الخروج" style="display: none;">
+                    <i class='bx bx-log-out'></i>
+                </button>
+            </div>
         </div>
     </div>
 
