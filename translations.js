@@ -48,7 +48,9 @@ const translations = {
         enterCode: "Enter the verification code sent to your phone",
         verify: "Verify",
         privacyPolicy: "Privacy Policy",
+        privacy_policy_link: "Privacy Policy",
         termsOfService: "Terms of Service",
+        terms_of_service_link: "Terms of Service",
         allRightsReserved: "All rights reserved.",
         
         // Pro Page
@@ -127,7 +129,9 @@ const translations = {
         enterCode: "أدخل رمز التحقق المرسل إلى رقم هاتفك",
         verify: "تحقق",
         privacyPolicy: "سياسة الخصوصية",
+        privacy_policy_link: "سياسة الخصوصية",
         termsOfService: "شروط الاستخدام",
+        terms_of_service_link: "شروط الاستخدام",
         allRightsReserved: "جميع الحقوق محفوظة.",
         
         // Pro Page
@@ -206,7 +210,9 @@ const translations = {
         enterCode: "输入发送到您手机的验证码",
         verify: "验证",
         privacyPolicy: "隐私政策",
+        privacy_policy_link: "隐私政策",
         termsOfService: "服务条款",
+        terms_of_service_link: "服务条款",
         allRightsReserved: "保留所有权利。",
         
         // Pro Page
@@ -285,7 +291,9 @@ const translations = {
         enterCode: "Entrez le code de vérification envoyé à votre téléphone",
         verify: "Vérifier",
         privacyPolicy: "Politique de confidentialité",
+        privacy_policy_link: "Politique de confidentialité",
         termsOfService: "Conditions d'utilisation",
+        terms_of_service_link: "Conditions d'utilisation",
         allRightsReserved: "Tous droits réservés.",
         
         // Pro Page

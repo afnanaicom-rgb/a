@@ -546,19 +546,22 @@ body.dark-mode .message-actions button:hover {
 
 /* ===== Tools Modal ===== */
 .tools-modal {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
+    position: absolute; /* Changed from fixed to absolute */
+    bottom: 60px; /* Position above the input bar */
+    right: 20px; /* Position on the right side */
+    width: 300px; /* Set a fixed width */
+    max-width: calc(100% - 40px); /* Ensure it doesn't exceed screen width */
+    background: none; /* Remove background overlay */
+    backdrop-filter: none; /* Remove backdrop filter */
     display: none;
     z-index: 1000;
-    animation: fadeIn 0.3s ease;
+    animation: none; /* Remove animation for now */
+    transform-origin: bottom right; /* Set transform origin for better animation */
 }
 
 .tools-modal.active {
     display: block;
+    animation: scaleIn 0.2s ease-out forwards; /* New animation for small modal */
 }
 
 @keyframes fadeIn {
@@ -567,17 +570,19 @@ body.dark-mode .message-actions button:hover {
 }
 
 .tools-modal-content {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px 20px 0 0;
-    padding: 20px;
-    max-width: 600px;
-    margin: 0 auto;
-    animation: slideUp 0.3s ease;
+    background: rgba(255, 255, 255, 0.98); /* Slightly more opaque */
+    border-radius: 15px; /* Uniform border radius */
+    padding: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Add shadow */
+    width: 100%; /* Fill the parent width */
+    margin: 0; /* Remove auto margin */
+    animation: none; /* Remove animation */
+    border: 1px solid rgba(135, 206, 235, 0.3);
 }
 
 body.dark-mode .tools-modal-content {
-    background: rgba(26, 26, 46, 0.95);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(26, 26, 46, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 @keyframes slideUp {
@@ -585,10 +590,15 @@ body.dark-mode .tools-modal-content {
     to { transform: translateY(0); }
 }
 
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
 .tools-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 10px; /* Reduced gap */
 }
 
 .tool-item {
@@ -665,46 +675,60 @@ body.dark-mode .tools-button:hover {
 
 /* Responsive Design for Tools Modal */
 @media (max-width: 768px) {
+    .tools-modal {
+        bottom: 60px;
+        right: 10px;
+        width: 250px;
+    }
     .tools-modal-content {
-        padding: 15px;
+        padding: 10px;
     }
     
     .tools-grid {
-        gap: 12px;
+        grid-template-columns: 1fr; /* Single column on small screens */
+        gap: 8px;
     }
     
     .tool-item {
-        padding: 15px;
+        padding: 10px;
+        flex-direction: row; /* Align items horizontally */
+        justify-content: flex-start;
     }
     
     .tool-item i {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
     }
     
     .tool-item span {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
     }
 }
 
 @media (max-width: 480px) {
+    .tools-modal {
+        bottom: 60px;
+        right: 10px;
+        width: 200px;
+    }
     .tools-modal-content {
-        padding: 12px;
+        padding: 8px;
     }
     
     .tools-grid {
-        gap: 10px;
+        grid-template-columns: 1fr;
+        gap: 6px;
     }
     
     .tool-item {
-        padding: 12px;
+        padding: 8px;
     }
     
     .tool-item i {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
     }
     
     .tool-item span {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
     }
 }
 

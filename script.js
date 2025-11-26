@@ -376,8 +376,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Close modal when clicking outside
-    toolsModal.addEventListener('click', (e) => {
-        if (e.target === toolsModal) {
+    document.addEventListener('click', (e) => {
+        const toolsButton = document.getElementById('toolsButton');
+        const toolsModal = document.getElementById('toolsModal');
+        
+        // Check if the click is outside the button and the modal, and if the modal is active
+        if (toolsModal.classList.contains('active') && !toolsButton.contains(e.target) && !toolsModal.contains(e.target)) {
             toolsModal.classList.remove('active');
         }
     });
