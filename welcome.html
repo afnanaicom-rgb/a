@@ -17,16 +17,52 @@
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { ref, set } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+
         // Display user's name
         const userName = localStorage.getItem('userName') || 'afnan';
         document.getElementById('userName').textContent = userName;
         
-        function goToHome() {
-            // Mark onboarding as complete
-            localStorage.setItem('onboardingComplete', 'true');
-            // Go to main page
-            window.location.href = 'index.html';
+        window.goToHome = async function() {
+            try {
+                // Get current user
+                const user = auth.currentUser;
+                if (!user) {
+                    alert('Please sign in first');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                // Get user data from localStorage
+                const userId = localStorage.getItem('userId') || '';
+                const userName = localStorage.getItem('userName') || '';
+                const userBirthday = localStorage.getItem('userBirthday') || '';
+
+                // Save user data to Firebase Database
+                const userRef = ref(db, 'users/' + user.uid);
+                await set(userRef, {
+                    id: userId,
+                    name: userName,
+                    birthday: userBirthday,
+                    email: user.email,
+                    createdAt: new Date().toISOString(),
+                    onboardingComplete: true
+                });
+
+                console.log('User data saved successfully');
+
+                // Mark onboarding as complete in localStorage (for backward compatibility)
+                localStorage.setItem('onboardingComplete', 'true');
+                
+                // Go to main page
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Error saving user data:', error);
+                alert('Error saving data: ' + error.message);
+            }
         }
     </script>
 </body>

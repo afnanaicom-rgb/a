@@ -1,6 +1,6 @@
 // login.js
 
-import { auth } from "./firebase-config.js";
+import { auth, db } from "./firebase-config.js";
 import { 
     sendSignInLinkToEmail, 
     isSignInWithEmailLink, 
@@ -12,6 +12,7 @@ import {
     setPersistence,
     browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+import { ref, get } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
 
 // Set persistence to LOCAL so the user stays logged in
 setPersistence(auth, browserLocalPersistence).catch((error) => {
@@ -167,13 +168,35 @@ if (isSignInWithEmailLink(auth, window.location.href)) {
 }
 
 // 5. Auth State Change Listener (Redirection)
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
     if (user) {
         console.log("User is signed in:", user.email);
-        // User is signed in, redirect to the chat page
-        setTimeout(() => {
-            window.location.href = 'https://afnanaicom-rgb.github.io/a/index.html';
-        }, 1000);
+        
+        try {
+            // Check if user data exists in Firebase Database
+            const userRef = ref(db, 'users/' + user.uid);
+            const snapshot = await get(userRef);
+            
+            if (!snapshot.exists()) {
+                // New user, redirect to onboarding
+                console.log("New user detected, redirecting to onboarding");
+                setTimeout(() => {
+                    window.location.href = 'https://afnanaicom-rgb.github.io/a/id.html';
+                }, 1000);
+            } else {
+                // Existing user, redirect to main page
+                console.log("Existing user detected, redirecting to main page");
+                setTimeout(() => {
+                    window.location.href = 'https://afnanaicom-rgb.github.io/a/index.html';
+                }, 1000);
+            }
+        } catch (error) {
+            console.error("Error checking user data:", error);
+            // On error, redirect to onboarding to be safe
+            setTimeout(() => {
+                window.location.href = 'https://afnanaicom-rgb.github.io/a/id.html';
+            }, 1000);
+        }
     } else {
         console.log("User is signed out");
         // User is signed out, ensure they are on the login page
