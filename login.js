@@ -7,6 +7,7 @@ import {
     signInWithEmailLink,
     onAuthStateChanged,
     GoogleAuthProvider,
+    GithubAuthProvider,
     signInWithPopup,
     setPersistence,
     browserLocalPersistence
@@ -87,11 +88,6 @@ document.getElementById('emailSubmit').addEventListener('click', async function(
 document.getElementById('googleLogin').addEventListener('click', async function() {
     const provider = new GoogleAuthProvider();
     
-    // Set custom parameters for Google Sign-In
-    provider.setCustomParameters({
-        'prompt': 'consent'
-    });
-
     try {
         const result = await signInWithPopup(auth, provider);
         console.log("User signed in with Google:", result.user);
@@ -112,7 +108,33 @@ document.getElementById('googleLogin').addEventListener('click', async function(
     }
 });
 
-// 3. Check for sign-in link on page load
+// 3. Handle GitHub Sign-In
+document.getElementById('githubLogin').addEventListener('click', async function() {
+    const provider = new GithubAuthProvider();
+    
+    try {
+        const result = await signInWithPopup(auth, provider);
+        console.log("User signed in with GitHub:", result.user);
+        // User is signed in, onAuthStateChanged will handle redirection
+    } catch (error) {
+        console.error("Error with GitHub Sign-In:", error);
+        
+        // Handle specific Firebase errors
+        if (error.code === 'auth/popup-blocked') {
+            alert("تم حظر النافذة المنبثقة. الرجاء السماح بالنوافذ المنبثقة.");
+        } else if (error.code === 'auth/popup-closed-by-user') {
+            alert("تم إغلاق نافذة تسجيل الدخول.");
+        } else if (error.code === 'auth/account-exists-with-different-credential') {
+            alert("يوجد حساب بنفس البريد الإلكتروني بطريقة تسجيل دخول مختلفة.");
+        } else if (error.code === 'auth/operation-not-supported-in-this-environment') {
+            alert("عملية تسجيل الدخول غير مدعومة في هذا المتصفح.");
+        } else {
+            alert("حدث خطأ: " + error.message);
+        }
+    }
+});
+
+// 4. Check for sign-in link on page load
 if (isSignInWithEmailLink(auth, window.location.href)) {
     let email = window.localStorage.getItem('emailForSignIn');
     if (!email) {
@@ -144,7 +166,7 @@ if (isSignInWithEmailLink(auth, window.location.href)) {
     }
 }
 
-// 4. Auth State Change Listener (Redirection)
+// 5. Auth State Change Listener (Redirection)
 onAuthStateChanged(auth, (user) => {
     if (user) {
         console.log("User is signed in:", user.email);
