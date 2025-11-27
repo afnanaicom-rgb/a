@@ -119,18 +119,23 @@ document.getElementById('githubLogin').addEventListener('click', async function(
         // User is signed in, onAuthStateChanged will handle redirection
     } catch (error) {
         console.error("Error with GitHub Sign-In:", error);
+        console.error("Error code:", error.code);
+        console.error("Error message:", error.message);
         
         // Handle specific Firebase errors
         if (error.code === 'auth/popup-blocked') {
             alert("تم حظر النافذة المنبثقة. الرجاء السماح بالنوافذ المنبثقة.");
         } else if (error.code === 'auth/popup-closed-by-user') {
-            alert("تم إغلاق نافذة تسجيل الدخول.");
+            // Don't show alert for user-closed popup (user intentionally closed it)
+            console.log("User closed the popup");
         } else if (error.code === 'auth/account-exists-with-different-credential') {
             alert("يوجد حساب بنفس البريد الإلكتروني بطريقة تسجيل دخول مختلفة.");
         } else if (error.code === 'auth/operation-not-supported-in-this-environment') {
             alert("عملية تسجيل الدخول غير مدعومة في هذا المتصفح.");
+        } else if (error.code === 'auth/configuration-not-found' || error.code === 'auth/unauthorized-domain') {
+            alert("تسجيل الدخول بـ GitHub غير مفعّل بشكل صحيح. يرجى التحقق من إعدادات Firebase.");
         } else {
-            alert("حدث خطأ: " + error.message);
+            alert("حدث خطأ في تسجيل الدخول: " + error.message + "\n\nالرجاء مراجعة ملف GITHUB_OAUTH_SETUP.md");
         }
     }
 });
