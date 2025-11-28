@@ -20,7 +20,7 @@
 
 ```
 Application name: Afnan AI
-Homepage URL: https://afnanaicom-rgb.github.io/a/
+Homepage URL: https://studio.afnanai.com/
 Authorization callback URL: https://afnanai-640b4.firebaseapp.com/__/auth/handler
 ```
 
@@ -64,7 +64,7 @@ Authorization callback URL: https://afnanai-640b4.firebaseapp.com/__/auth/handle
 
 بعد إتمام الخطوات السابقة:
 
-1. افتح موقعك: https://afnanaicom-rgb.github.io/a/login.html
+1. افتح موقعك: https://studio.afnanai.com/login.html
 2. اضغط على زر **Continue with GitHub**
 3. يجب أن تفتح نافذة GitHub OAuth وتطلب منك الموافقة
 4. بعد الموافقة، سيتم تسجيل دخولك بنجاح
@@ -73,7 +73,7 @@ Authorization callback URL: https://afnanai-640b4.firebaseapp.com/__/auth/handle
 
 ## ملاحظات مهمة
 
-1. **Domain Verification**: تأكد أن النطاق `afnanaicom-rgb.github.io` مضاف في قائمة **Authorized domains** في Firebase Authentication
+1. **Domain Verification**: تأكد أن النطاق `studio.afnanai.com` مضاف في قائمة **Authorized domains** في Firebase Authentication
 2. **HTTPS Required**: تسجيل الدخول بـ OAuth يتطلب HTTPS (GitHub Pages يوفر HTTPS تلقائياً)
 3. **Client Secret**: لا تشارك الـ Client Secret مع أحد ولا تضعه في الكود المصدري
 

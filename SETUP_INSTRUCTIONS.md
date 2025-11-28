@@ -55,7 +55,7 @@
 2. اضغط على **OAuth Apps** → **New OAuth App**
 3. املأ البيانات:
    - **Application name**: `Afnan AI`
-   - **Homepage URL**: `https://afnanaicom-rgb.github.io/a/`
+   - **Homepage URL**: `https://studio.afnanai.com/`
    - **Authorization callback URL**: `https://afnanai-640b4.firebaseapp.com/__/auth/handler`
 4. اضغط على **Register application**
 5. احفظ **Client ID**
@@ -76,7 +76,7 @@
 
 1. في نفس صفحة **Authentication** → **Settings** → **Authorized domains**
 2. تأكد أن النطاق التالي موجود في القائمة:
-   - `afnanaicom-rgb.github.io`
+   - `studio.afnanai.com`
 3. إذا لم يكن موجوداً، اضغط على **Add domain** وأضفه
 
 ---
@@ -106,7 +106,7 @@
 
 ### اختبار المستخدم الجديد:
 1. افتح المتصفح في وضع Incognito/Private
-2. اذهب إلى: https://afnanaicom-rgb.github.io/a/login.html
+2. اذهب إلى: https://studio.afnanai.com/login.html
 3. سجل دخول بحساب جديد
 4. يجب أن تظهر صفحات الـ onboarding
 5. أكمل البيانات واضغط "Get Started"

@@ -8,6 +8,7 @@ import {
     onAuthStateChanged,
     GoogleAuthProvider,
     GithubAuthProvider,
+    MicrosoftAuthProvider,
     signInWithPopup,
     setPersistence,
     browserLocalPersistence
@@ -37,7 +38,7 @@ function closePage(pageId) {
 
 const actionCodeSettings = {
     // URL to redirect to after email link is sent.
-    url: 'https://afnanaicom-rgb.github.io/a/login.html',
+    url: 'https://studio.afnanai.com/login.html',
     // This must be true.
     handleCodeInApp: true,
 };
@@ -140,7 +141,29 @@ document.getElementById('githubLogin').addEventListener('click', async function(
     }
 });
 
-// 4. Check for sign-in link on page load
+// 4. Handle Microsoft Sign-In
+document.getElementById('microsoftLogin').addEventListener('click', async function() {
+    const provider = new MicrosoftAuthProvider();
+    
+    try {
+        const result = await signInWithPopup(auth, provider);
+        console.log("User signed in with Microsoft:", result.user);
+        // User is signed in, onAuthStateChanged will handle redirection
+    } catch (error) {
+        console.error("Error with Microsoft Sign-In:", error);
+        
+        // Handle specific Firebase errors
+        if (error.code === 'auth/popup-blocked') {
+            alert("تم حظر النافذة المنبثقة. الرجاء السماح بالنوافذ المنبثقة.");
+        } else if (error.code === 'auth/popup-closed-by-user') {
+            console.log("User closed the popup");
+        } else {
+            alert("حدث خطأ: " + error.message);
+        }
+    }
+});
+
+// 5. Check for sign-in link on page load
 if (isSignInWithEmailLink(auth, window.location.href)) {
     let email = window.localStorage.getItem('emailForSignIn');
     if (!email) {
@@ -186,20 +209,20 @@ onAuthStateChanged(auth, async (user) => {
                 // New user, redirect to onboarding
                 console.log("New user detected, redirecting to onboarding");
                 setTimeout(() => {
-                    window.location.href = 'https://afnanaicom-rgb.github.io/a/id.html';
+                    window.location.href = 'https://studio.afnanai.com/id.html';
                 }, 1000);
             } else {
                 // Existing user, redirect to main page
                 console.log("Existing user detected, redirecting to main page");
                 setTimeout(() => {
-                    window.location.href = 'https://afnanaicom-rgb.github.io/a/index.html';
+                    window.location.href = 'https://studio.afnanai.com/index.html';
                 }, 1000);
             }
         } catch (error) {
             console.error("Error checking user data:", error);
             // On error, redirect to onboarding to be safe
             setTimeout(() => {
-                window.location.href = 'https://afnanaicom-rgb.github.io/a/id.html';
+                window.location.href = 'https://studio.afnanai.com/id.html';
             }, 1000);
         }
     } else {
@@ -207,7 +230,7 @@ onAuthStateChanged(auth, async (user) => {
         // User is signed out, ensure they are on the login page
         if (window.location.pathname.includes('index.html')) {
             // If they are on index.html, redirect them to login.html
-            window.location.href = 'https://afnanaicom-rgb.github.io/a/login.html';
+            window.location.href = 'https://studio.afnanai.com/login.html';
         } else {
             // Ensure the login page is active
             openPage('loginPage');
