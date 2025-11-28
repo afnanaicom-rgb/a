@@ -11,7 +11,10 @@ import {
     MicrosoftAuthProvider,
     signInWithPopup,
     setPersistence,
-    browserLocalPersistence
+    browserLocalPersistence,
+    PhoneAuthProvider,
+    RecaptchaVerifier,
+    signInWithPhoneNumber
 } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
 import { ref, get } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
 
@@ -163,7 +166,94 @@ document.getElementById('microsoftLogin').addEventListener('click', async functi
     }
 });
 
-// 5. Check for sign-in link on page load
+// 5. Handle Phone Number Sign-In
+let recaptchaVerifier;
+let confirmationResult;
+
+// Initialize RecaptchaVerifier on the phone login page
+document.getElementById('phoneLoginPage').addEventListener('click', () => {
+    if (!recaptchaVerifier) {
+        recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+            'size': 'invisible',
+            'callback': (response) => {
+                // reCAPTCHA solved, allow signInWithPhoneNumber.
+            },
+            'expired-callback': () => {
+                // Response expired. Ask user to solve reCAPTCHA again.
+            }
+        });
+    }
+});
+
+document.getElementById('phoneSubmit').addEventListener('click', async function() {
+    const phoneNumber = document.getElementById('phoneInput').value;
+    const fullPhoneNumber = '+20' + phoneNumber; // Assuming Egypt (+20) as per login.html
+
+    if (!phoneNumber) {
+        alert("الرجاء إدخال رقم الهاتف.");
+        return;
+    }
+
+    try {
+        // Render the reCAPTCHA if it hasn't been rendered yet
+        if (!recaptchaVerifier) {
+            recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                'size': 'invisible',
+                'callback': (response) => {
+                    // reCAPTCHA solved, allow signInWithPhoneNumber.
+                },
+                'expired-callback': () => {
+                    // Response expired. Ask user to solve reCAPTCHA again.
+                }
+            });
+        }
+        
+        confirmationResult = await signInWithPhoneNumber(auth, fullPhoneNumber, recaptchaVerifier);
+        
+        // Save the phone number for display
+        document.getElementById('verificationPhoneDisplay').textContent = fullPhoneNumber;
+        
+        // Show the verification page
+        openPage('phoneVerificationPage');
+
+    } catch (error) {
+        console.error("Error sending SMS code:", error);
+        
+        if (error.code === 'auth/invalid-phone-number') {
+            alert("رقم الهاتف غير صحيح.");
+        } else if (error.code === 'auth/quota-exceeded') {
+            alert("تم تجاوز الحد الأقصى لعدد الطلبات. الرجاء المحاولة لاحقاً.");
+        } else {
+            alert("حدث خطأ: " + error.message);
+        }
+    }
+});
+
+document.getElementById('verifyPhone').addEventListener('click', async function() {
+    const code = Array.from(document.querySelectorAll('.verification-input')).map(input => input.value).join('');
+
+    if (!code || code.length !== 6) {
+        alert("الرجاء إدخال رمز التحقق المكون من 6 أرقام.");
+        return;
+    }
+
+    try {
+        await confirmationResult.confirm(code);
+        // User is signed in, onAuthStateChanged will handle redirection
+    } catch (error) {
+        console.error("Error verifying SMS code:", error);
+        
+        if (error.code === 'auth/invalid-verification-code') {
+            alert("رمز التحقق غير صحيح. الرجاء المحاولة مرة أخرى.");
+        } else if (error.code === 'auth/code-expired') {
+            alert("رمز التحقق انتهت صلاحيته. الرجاء طلب رمز جديد.");
+        } else {
+            alert("حدث خطأ: " + error.message);
+        }
+    }
+});
+
+// 6. Check for sign-in link on page load
 if (isSignInWithEmailLink(auth, window.location.href)) {
     let email = window.localStorage.getItem('emailForSignIn');
     if (!email) {

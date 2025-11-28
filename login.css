@@ -38,6 +38,24 @@ body {
     padding-top: 5vh;
 }
 
+/* Ensure LTR for English content */
+[dir="ltr"] .auth-footer,
+[dir="ltr"] .auth-header,
+[dir="ltr"] .auth-main {
+    text-align: left;
+}
+
+[dir="ltr"] .separator:not(:empty)::before { margin-right: .75em; margin-left: 0; }
+[dir="ltr"] .separator:not(:empty)::after { margin-left: .75em; margin-right: 0; }
+
+[dir="ltr"] .verification-inputs {
+    direction: ltr;
+}
+
+[dir="ltr"] .auth-footer a {
+    margin: 0 8px;
+}
+
 .page.active {
     display: block;
 }
@@ -196,8 +214,8 @@ body {
     border-bottom: 1px solid #e5e5e5;
 }
 
-.separator:not(:empty)::before { margin-left: .75em; }
-.separator:not(:empty)::after { margin-right: .75em; }
+.separator:not(:empty)::before { margin-right: .75em; } /* Changed from margin-left to margin-right for RTL */
+.separator:not(:empty)::after { margin-left: .75em; } /* Changed from margin-right to margin-left for RTL */
 
 .social-button {
     display: flex;
@@ -281,6 +299,11 @@ body {
     margin: 0 8px;
     transition: color 0.2s;
     cursor: pointer;
+}
+
+/* New style for phone login button */
+.social-button .bx-phone {
+    color: #3B82F6; /* A distinct color for phone icon */
 }
 
 .auth-footer a:hover {

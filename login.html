@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,6 +39,11 @@
                 <i class='bx bxl-microsoft icon'></i>
                 <span>Continue with Microsoft</span>
             </button>
+            
+            <button id="phoneLogin" class="social-button" onclick="openPage('phoneLoginPage')">
+                <i class='bx bxs-phone icon'></i>
+                <span>Continue with Phone Number</span>
+            </button>
 
         </main>
     </div>
@@ -62,7 +67,7 @@
         </main>
     </div>
 
-    <div id="phoneLoginPage" class="page" style="display:none;">
+    <div id="phoneLoginPage" class="page">
         <header class="auth-header">
             <img src="logo.png" alt="afnan ai Logo" class="logo">
             <h1>تسجيل الدخول برقم الهاتف</h1>
@@ -74,17 +79,18 @@
                     <div class="egypt-flag"></div>
                     <span>+20</span>
                 </div>
-                <input type="tel" id="phoneInput" class="input-field phone-input" placeholder="رقم الهاتف" required>
+                <input type="tel" id="phoneInput" class="input-field phone-input" placeholder="Phone Number" required>
             </div>
-            <button id="phoneSubmit" class="submit-button">إكمال</button>
+            <button id="phoneSubmit" class="submit-button">Continue</button>
+            <div id="recaptcha-container"></div>
         </main>
     </div>
 
-    <div id="phoneVerificationPage" class="page" style="display:none;">
+    <div id="phoneVerificationPage" class="page">
         <header class="auth-header">
             <img src="logo.png" alt="afnan ai Logo" class="logo">
             <h1>تحقق من رقم الهاتف</h1>
-            <p>أدخل رمز التحقق المرسل إلى رقم هاتفك</p>
+            <p>Enter the verification code sent to <strong id="verificationPhoneDisplay"></strong></p>
         </header>
         <main class="auth-main">
             <div class="verification-inputs">
@@ -93,7 +99,7 @@
                 <input type="text" class="verification-input" maxlength="1">
                 <input type="text" class="verification-input" maxlength="1">
             </div>
-            <button id="verifyPhone" class="submit-button">تحقق</button>
+            <button id="verifyPhone" class="submit-button">Verify</button>
         </main>
     </div>
 
@@ -113,11 +119,11 @@
     
     <div class="auth-footer">
         <p>
-            <a onclick="openPage('privacyPolicyPage')" data-i18n="privacy_policy_link">سياسة الخصوصية</a>
+            <a onclick="openPage('privacyPolicyPage')" data-i18n="privacy_policy_link">Privacy Policy</a>
             |
-            <a onclick="openPage('termsOfServicePage')" data-i18n="terms_of_service_link">شروط الاستخدام</a>
+            <a onclick="openPage('termsOfServicePage')" data-i18n="terms_of_service_link">Terms of Service</a>
         </p>
-        <p>© 2025 afnan ai. جميع الحقوق محفوظة.</p>
+        <p>© 2025 afnan ai. All rights reserved.</p>
     </div>
 
     <script type="module" src="firebase-config.js"></script>
